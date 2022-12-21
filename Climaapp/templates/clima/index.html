@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Articles-Cards-images.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+
+<body>
+    <section class="shadow-lg Cartel" style="position: relative;display: flex;text-align: center;font-size: 18px;background: rgba(255,255,255,0.3);overflow: clip;transform: rotate(0deg) scale(0.90) skew(0deg);backdrop-filter: opacity(1) blur(3px) contrast(91%) grayscale(0%) hue-rotate(0deg) invert(0%) saturate(100%) sepia(0%);margin: 110px;height: 204.256px;padding: 4px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2 class="display-6 fw-bold" style="text-align: center;font-weight: bold;">Clima Mundial</h2>
+                    <p class="text-muted" style="--bs-secondary: #2f7dc2;--bs-secondary-rgb: 47,125,194;font-style: italic;--bs-primary: #f5f5f5;--bs-primary-rgb: 245,245,245;margin: 15px;padding: 0px;font-size: 21px;text-align: center;height: 65px;"><span style="font-style: normal !important; color: rgb(0, 0, 0);">Obtiene el clima de todo el mundo, desde un solo lugar...</span></p>
+                </div>
+            </div>
+            <form class="d-flex justify-content-center flex-wrap" method="post"><input class="form-control" type="text" style="width: 270.2px;height: 38px;margin: -0px;padding: 0px 12px;" placeholder="Ingrese una ciudad" name="city">
+                {%csrf_token%}
+                <div class="mb-3"><button class="btn btn-primary ms-2" type="submit">Buscar</button></div>
+            </form>
+        </div>
+    </section>
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="col- row-5 alert alert-danger d-flex align-items-left" style="padding-left: 600px; font-size: 15px;" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"  ><use xlink:href="#info-fill"/></svg>
+            <div>
+            {{message}}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <br>
+    
+    {% if not messages %}
+    <div class="container row-cols-6 col-8 justify-content-center align-items-center" style="width: 400px;backdrop-filter: opacity(1);">
+        <div class="card-group shadow-lg justify-content-center align-items-center" style="width: 367.8px;backdrop-filter: opacity(50px);">
+            <div class="card" style="opacity: 1;backdrop-filter: opacity(1);">
+                <div class="card-body Fondo-Card" style="--bs-body-font-weight: bold;">
+                    <img src="http://openweathermap.org/img/w/{{clima.icon}}.png" alt="">
+                    <h3 class="card-title">{{clima.city}}</h3>
+                    <h5 class="card-text" style="text-transform:capitalize">{{clima.descripcion}}</h5>
+                    <b><p class="card-text"  >{{clima.temperatura}}°C</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-thermometer-high" viewBox="0 0 16 16">
+                        <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585a1.5 1.5 0 0 1 1 1.415z"/>
+                        <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1z"/>
+                      </svg></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
